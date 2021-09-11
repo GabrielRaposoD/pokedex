@@ -18,10 +18,10 @@ export default function Home() {
   }, [fetchData]);
 
   return (
-    <div className='flex flex-row flex-wrap items-center justify-center min-h-screen gap-5 py-2'>
+    <ol className='flex flex-row flex-wrap items-center justify-center min-h-screen gap-5 py-2 list-none'>
       {data.map((item, i) => (
         <PokemonCard pokemon={item} key={i} />
       ))}
-    </div>
+    </ol>
   );
 }

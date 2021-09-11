@@ -7,7 +7,7 @@ interface pokeApiQuery {
 }
 
 const getPokemon = async (name: string) =>
-  await apiClient.get(`/pokemon/${name}`);
+  await apiClient.get<IPokemon>(`/pokemon/${name}`);
 
 const getAllPokemons = async (query?: pokeApiQuery) => {
   const res: IPokemon[] = await apiClient

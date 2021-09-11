@@ -60,9 +60,9 @@ export const getColorByType = {
     border: 'border-flying',
   },
   poison: {
-    bg: 'bg-posion',
-    text: 'text-posion',
-    border: 'border-posion',
+    bg: 'bg-poison',
+    text: 'text-poison',
+    border: 'border-poison',
   },
   ground: {
     bg: 'bg-ground',
