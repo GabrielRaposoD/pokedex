@@ -7,6 +7,7 @@ import { getColorByType } from 'utils/getColorByType';
 import { TypeTag } from '@components/index';
 import ErrorPage from 'next/error';
 import Link from 'next/link';
+import { pokemonType } from '@typings/pokemon';
 
 const PokemonPage = () => {
   const router = useRouter();
@@ -108,7 +109,7 @@ const PokemonPage = () => {
       <section className='w-auto h-full mx-1.5 mb-1.5 bg-white rounded-lg mt-4 flex flex-col'>
         <div className='gap-x-4 mt-14 flex flex-row items-center justify-center w-full'>
           {data.types.map((t, i) => (
-            <TypeTag type={t.type.name} key={i} />
+            <TypeTag type={t.type.name as pokemonType} key={i} />
           ))}
         </div>
         <p
