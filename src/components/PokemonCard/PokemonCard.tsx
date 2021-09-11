@@ -23,6 +23,7 @@ const PokemonCard: React.FC<PokemonCardProps> = ({ pokemon }) => {
       <img
         src={pokemon.sprites.other['official-artwork'].front_default}
         alt=''
+        className='w-full h-20'
       />
       <div className=''>
         <p
