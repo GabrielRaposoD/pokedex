@@ -1,7 +1,7 @@
 import { pokemonType } from '@typings/pokemon';
 
 export interface INamedApiResource<T> {
-  name: pokemonType;
+  name: string | pokemonType;
   url: string;
 }
 

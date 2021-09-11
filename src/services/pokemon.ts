@@ -1,4 +1,5 @@
-import { IPokemon } from './../typings/Pokemon/Pokemon';
+import { IPokemonSpecies } from '@typings/Pokemon/PokemonSpecies';
+import { IPokemon } from '@typings/Pokemon/Pokemon';
 import { apiClient } from './api';
 
 interface pokeApiQuery {
@@ -8,6 +9,9 @@ interface pokeApiQuery {
 
 const getPokemon = async (name: string) =>
   await apiClient.get<IPokemon>(`/pokemon/${name}`);
+
+const getPokemonDescription = async (name: string) =>
+  await apiClient.get<IPokemonSpecies>(`/pokemon-species/${name}`);
 
 const getAllPokemons = async (query?: pokeApiQuery) => {
   const res: IPokemon[] = await apiClient
@@ -25,4 +29,4 @@ const getAllPokemons = async (query?: pokeApiQuery) => {
   return res;
 };
 
-export { getPokemon, getAllPokemons };
+export { getPokemon, getAllPokemons, getPokemonDescription };
