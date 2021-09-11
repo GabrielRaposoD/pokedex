@@ -81,6 +81,12 @@ module.exports = {
             lineHeight: '16px',
           },
         ],
+        xxxs: [
+          '8px',
+          {
+            lineHeight: '12px',
+          },
+        ],
       },
     },
   },

@@ -1,74 +1,92 @@
-export const colorByType = {
-  Rock: {
+export const getColorByType = {
+  rock: {
     bg: 'bg-rock',
     text: 'text-rock',
+    border: 'border-rock',
   },
-  Ghost: {
+  ghost: {
     bg: 'bg-ghost',
     text: 'text-ghost',
+    border: 'border-ghost',
   },
-  Steel: {
+  steel: {
     bg: 'bg-steel',
     text: 'text-steel',
+    border: 'border-steel',
   },
-  Water: {
+  water: {
     bg: 'bg-water',
     text: 'text-water',
+    border: 'border-water',
   },
-  Grass: {
+  grass: {
     bg: 'bg-grass',
     text: 'text-grass',
+    border: 'border-grass',
   },
-  Psychic: {
+  psychic: {
     bg: 'bg-psychich',
     text: 'text-psychich',
+    border: 'border-psychich',
   },
-  Ice: {
+  ice: {
     bg: 'bg-ice',
     text: 'text-ice',
+    border: 'border-ice',
   },
-  Dark: {
+  dark: {
     bg: 'bg-dark',
     text: 'text-dark',
+    border: 'border-dark',
   },
-  Fairy: {
+  fairy: {
     bg: 'bg-fairy',
     text: 'text-fairy',
+    border: 'border-fairy',
   },
-  Normal: {
+  normal: {
     bg: 'bg-normal',
     text: 'text-normal',
+    border: 'border-normal',
   },
-  Fighting: {
+  fighting: {
     bg: 'bg-fighting',
     text: 'text-fighting',
+    border: 'border-fighting',
   },
-  Flying: {
+  flying: {
     bg: 'bg-flying',
     text: 'text-flying',
+    border: 'border-flying',
   },
-  Poison: {
+  poison: {
     bg: 'bg-posion',
     text: 'text-posion',
+    border: 'border-posion',
   },
-  Ground: {
+  ground: {
     bg: 'bg-ground',
     text: 'text-ground',
+    border: 'border-ground',
   },
-  Bug: {
+  bug: {
     bg: 'bg-bug',
     text: 'text-bug',
+    border: 'border-bug',
   },
-  Fire: {
+  fire: {
     bg: 'bg-fire',
     text: 'text-fire',
+    border: 'border-fire',
   },
-  Electric: {
+  electric: {
     bg: 'bg-electric',
     text: 'text-electric',
+    border: 'border-electric',
   },
-  Dragon: {
+  dragon: {
     bg: 'bg-dragon',
     text: 'text-dragon',
+    border: 'border-dragon',
   },
 };

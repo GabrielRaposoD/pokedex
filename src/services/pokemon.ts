@@ -1,3 +1,4 @@
+import { IPokemon } from './../typings/Pokemon/Pokemon';
 import { apiClient } from './api';
 
 interface pokeApiQuery {
@@ -9,7 +10,7 @@ const getPokemon = async (name: string) =>
   await apiClient.get(`/pokemon/${name}`);
 
 const getAllPokemons = async (query?: pokeApiQuery) => {
-  const res = await apiClient
+  const res: IPokemon[] = await apiClient
     .get('/pokemon', {
       params: query,
     })
