@@ -54,7 +54,7 @@ const PokemonPage = () => {
     <div
       className={`${
         getColorByType[data.types[0].type.name].bg
-      } relative h-screen`}
+      } relative h-screen max-h-screen pb-1.5 flex flex-col`}
     >
       <div className='px-7 flex flex-row items-center w-full pt-5'>
         <Link href='/'>
@@ -106,7 +106,7 @@ const PokemonPage = () => {
           }}
         />
       </div>
-      <section className='w-auto h-full mx-1.5 mb-1.5 bg-white rounded-lg mt-4 flex flex-col'>
+      <section className='w-auto h-full mx-1.5 bg-white rounded-lg mt-4 flex flex-col'>
         <div className='gap-x-4 mt-14 flex flex-row items-center justify-center w-full'>
           {data.types.map((t, i) => (
             <TypeTag type={t.type.name as pokemonType} key={i} />
