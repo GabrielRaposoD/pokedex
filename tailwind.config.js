@@ -1,7 +1,10 @@
 module.exports = {
-  mode: 'watch',
+  mode: 'jit',
   purge: {
-    content: ['./src/{components,pages}/**/*.{js,ts,jsx,tsx}'],
+    content: [
+      './src/{components,pages}/**/*.{js,ts,jsx,tsx}',
+      './safelist.txt',
+    ],
     options: {
       safelist: [
         'text-dragon',
@@ -21,9 +24,9 @@ module.exports = {
         'bg-grass',
         'text-grass',
         'border-grass',
-        'bg-psychich',
-        'text-psychich',
-        'border-psychich',
+        'bg-psychic',
+        'text-psychic',
+        'border-psychic',
         'bg-ice',
         'text-ice',
         'border-ice',
@@ -42,9 +45,9 @@ module.exports = {
         'bg-flying',
         'text-flying',
         'border-flying',
-        'bg-posion',
-        'text-posion',
-        'border-posion',
+        'bg-poison',
+        'text-poison',
+        'border-poison',
         'bg-ground',
         'text-ground',
         'border-ground',
