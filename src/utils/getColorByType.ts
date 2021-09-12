@@ -25,9 +25,9 @@ export const getColorByType = {
     border: 'border-grass',
   },
   psychic: {
-    bg: 'bg-psychich',
-    text: 'text-psychich',
-    border: 'border-psychich',
+    bg: 'bg-psychic',
+    text: 'text-psychic',
+    border: 'border-psychic',
   },
   ice: {
     bg: 'bg-ice',
