@@ -12,7 +12,7 @@ const PokemonCard: React.FC<PokemonCardProps> = ({ pokemon }) => {
     <li>
       <Link href={`/pokemon/${pokemon.name}`}>
         <a
-          className={`flex flex-col relative items-center text-right bg-white border border-black border-solid rounded-lg lg:h-48 lg:w-44 md:h-44 md:w-40 h-28 w-24 justify-between overflow-hidden cursor-pointer ${
+          className={`flex flex-col relative items-center text-right bg-white border border-solid rounded-lg lg:h-48 lg:w-44 md:h-44 md:w-40 h-28 w-24 justify-between overflow-hidden cursor-pointer ${
             getColorByType[pokemon.types[0].type.name].border
           }`}
         >
