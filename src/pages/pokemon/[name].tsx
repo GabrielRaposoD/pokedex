@@ -4,7 +4,7 @@ import { getPokemon, getPokemonDescription } from '@services/pokemon';
 import { useCallback, useEffect, useState } from 'react';
 import { IPokemon } from '@typings/Pokemon/Pokemon';
 import { getColorByType } from 'utils/getColorByType';
-import { TypeTag } from '@components/index';
+import { TypeTag, LoadingScreen } from '@components/index';
 import ErrorPage from 'next/error';
 import Link from 'next/link';
 import { pokemonType } from '@typings/pokemon';
@@ -16,8 +16,6 @@ const PokemonPage = () => {
 
   const [data, setData] = useState<IPokemon>(null);
   const [description, setDescription] = useState<string>('');
-
-  console.log(description);
 
   const fetchData = useCallback(async () => {
     try {
@@ -47,14 +45,14 @@ const PokemonPage = () => {
   }
 
   if (!data) {
-    return <p>loading</p>;
+    return <LoadingScreen />;
   }
 
   return (
     <div
       className={`${
         getColorByType[data.types[0].type.name].bg
-      } relative h-screen max-h-screen pb-1.5 flex flex-col`}
+      } relative min-h-screen lg:h-full lg:max-h-full max-h-screen pb-1.5 flex flex-col`}
     >
       <div className='px-7 flex flex-row items-center w-full pt-5'>
         <Link href='/'>
@@ -66,23 +64,23 @@ const PokemonPage = () => {
             />
           </a>
         </Link>
-        <p className='ml-4 text-2xl font-bold text-white capitalize'>
+        <h2 className='md:text-3xl ml-4 text-2xl font-bold text-white capitalize'>
           {data.name}
-        </p>
-        <p className='flex-grow text-xs font-bold leading-8 text-right text-white'>
+        </h2>
+        <p className='md:text-base flex-grow text-xs font-bold leading-8 text-right text-white'>
           #{data.id}
         </p>
       </div>
       <img
         src='/images/pokeball.svg'
         alt=''
-        className='absolute top-0 right-0 m-2'
+        className='absolute top-0 right-0 m-2 lg:w-[40%]'
       />
-      <div className='justify px-7 mt-36 relative flex flex-row justify-between'>
+      <div className='justify px-7 mt-36 lg:mt-60 xl:mt-80 relative flex flex-row justify-between'>
         <img
           src='/icons/chevron-left.svg'
           alt=''
-          className='cursor-pointer'
+          className='md:w-3 cursor-pointer'
           onClick={() => {
             const id = data.id > 1 ? data.id - 1 : 897;
             router.replace(`/pokemon/` + id);
@@ -91,67 +89,66 @@ const PokemonPage = () => {
         <img
           src={data.sprites.other['official-artwork'].front_default}
           alt=''
-          className='left-1/4 absolute w-1/2'
-          style={{
-            top: '-105px',
-          }}
+          className='left-1/4 md:w-4/12 md:left-1/2 md:transform md:-translate-x-1/2 md:-top-32 absolute w-1/2 top-[-105px] lg:-top-52 xl:top-[-340px] 2xl:w-3/12'
         />
         <img
           src='/icons/chevron-left.svg'
           alt=''
-          className='transform rotate-180 cursor-pointer'
+          className='md:w-3 transform rotate-180 cursor-pointer'
           onClick={() => {
             const id = data.id < 897 ? data.id + 1 : 1;
             router.replace(`/pokemon/` + id);
           }}
         />
       </div>
-      <section className='w-auto h-full mx-1.5 bg-white rounded-lg mt-4 flex flex-col'>
-        <div className='gap-x-4 mt-14 flex flex-row items-center justify-center w-full'>
+      <section className='w-auto h-full mx-1.5 bg-white rounded-lg md:mt-10 mt-4 flex flex-col lg:pb-7 flex-grow'>
+        <div className='gap-x-4 flex flex-row items-center justify-center w-full mt-20'>
           {data.types.map((t, i) => (
             <TypeTag type={t.type.name as pokemonType} key={i} />
           ))}
         </div>
         <p
-          className={`text-center font-bold text-sm mt-3 ${
+          className={`text-center font-bold text-sm mt-3 md:text-xl ${
             getColorByType[data.types[0].type.name].text
           }`}
         >
           About
         </p>
         <div className='flex flex-row items-center justify-center w-full mt-3 divide-x'>
-          <div className='flex flex-col items-center justify-between h-full pr-6 pt-1.5'>
+          <div className='flex flex-col items-center justify-between h-full pr-6 pt-1.5 md:min-h-[60px] min-h-[50px]'>
             <div className='flex flex-row items-center gap-2'>
-              <img src='/icons/weigth.svg' alt='' />
-              <p className='text-darkGray text-xxs'>
+              <img src='/icons/weigth.svg' alt='' className='md:w-5' />
+              <p className='text-darkGray text-xxs md:text-xs'>
                 {(data.weight / 10).toFixed(1)} KG
               </p>
             </div>
-            <p className='text-mediumGray text-xxxs'>Weigth</p>
+            <p className='text-mediumGray text-xxxs md:text-xs'>Weigth</p>
           </div>
-          <div className='flex flex-col items-center justify-between h-full px-6 pt-1.5'>
+          <div className='flex flex-col items-center justify-between h-full px-6 pt-1.5 md:min-h-[60px] min-h-[50px]'>
             <div className='flex flex-row items-center gap-2'>
-              <img src='/icons/ruler.svg' alt='' />
-              <p className='text-darkGray text-xxs'>
+              <img src='/icons/ruler.svg' alt='' className='md:w-3' />
+              <p className='text-darkGray text-xxs md:text-xs'>
                 {(data.height / 10).toFixed(1)} M
               </p>
             </div>
-            <p className='text-mediumGray text-xxxs'>Height</p>
+            <p className='text-mediumGray text-xxxs md:text-xs'>Height</p>
           </div>
-          <div className='flex flex-col items-center justify-center h-full pl-6'>
-            <div className='flex flex-col items-center capitalize'>
+          <div className='flex flex-col items-center justify-between h-full pl-6'>
+            <div className='flex flex-col items-center pt-1.5 capitalize'>
               {data.abilities.map((a, i) => (
-                <p key={i} className='text-darkGray text-xxs'>
+                <p key={i} className='text-darkGray text-xxs md:text-xs'>
                   {a.ability.name.replace('-', ' ')}
                 </p>
               ))}
             </div>
-            <p className='text-mediumGray text-xxxs'>Abiliities</p>
+            <p className='text-mediumGray text-xxxs md:text-xs'>Abiliities</p>
           </div>
         </div>
-        <p className='text-xxs text-darkGray px-5 mt-3'>{description}</p>
+        <p className='text-xxs text-darkGray md:text-sm lg:mt-7 px-5 mt-5'>
+          {description}
+        </p>
         <p
-          className={`text-center font-bold text-sm mt-3 ${
+          className={`text-center font-bold text-sm mt-3 lg:mt-5 md:text-xl ${
             getColorByType[data.types[0].type.name].text
           }`}
         >
@@ -159,7 +156,7 @@ const PokemonPage = () => {
         </p>
         <div className='flex flex-row w-full px-5 mt-3'>
           <div
-            className={`flex flex-col text-right font-bold text-xxs border-r pr-2 ${
+            className={`flex flex-col text-right font-bold text-xxs border-r pr-2 md:text-sm ${
               getColorByType[data.types[0].type.name].text
             }`}
           >
@@ -173,7 +170,9 @@ const PokemonPage = () => {
           <div className=' flex flex-col w-full ml-2'>
             {data.stats.map((s, i) => (
               <div className='flex flex-row items-center w-full gap-2' key={i}>
-                <p className='text-darkGray text-xxs w-5'>{s.base_stat}</p>
+                <p className='text-darkGray text-xxs md:text-sm w-5'>
+                  {s.base_stat}
+                </p>
                 <div className='relative w-full'>
                   <div
                     className={`flex h-1 overflow-hidden text-xs bg-opacity-20 ${

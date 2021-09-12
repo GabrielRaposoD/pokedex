@@ -8,7 +8,7 @@ interface TypeTagProps {
 const TypeTag: React.FC<TypeTagProps> = ({ type }) => {
   return (
     <div
-      className={`rounded-2lg ${getColorByType[type].bg} text-white py-0.5 px-2 font-bold text-xxs capitalize w-max`}
+      className={`rounded-2lg ${getColorByType[type].bg} text-white py-0.5 px-2 font-bold text-xxs capitalize w-max md:text-sm`}
     >
       {type}
     </div>

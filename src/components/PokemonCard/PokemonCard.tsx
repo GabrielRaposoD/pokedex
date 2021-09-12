@@ -12,12 +12,12 @@ const PokemonCard: React.FC<PokemonCardProps> = ({ pokemon }) => {
     <li>
       <Link href={`/pokemon/${pokemon.name}`}>
         <a
-          className={`flex flex-col text-right bg-white border border-black border-solid rounded-lg h-28 w-24 justify-between overflow-hidden cursor-pointer ${
+          className={`flex flex-col relative items-center text-right bg-white border border-black border-solid rounded-lg lg:h-48 lg:w-44 md:h-44 md:w-40 h-28 w-24 justify-between overflow-hidden cursor-pointer ${
             getColorByType[pokemon.types[0].type.name].border
           }`}
         >
           <p
-            className={`text-xxxs mx-2 mt-1 ${
+            className={`text-xxxs md:text-xxs right-0 p-1 absolute ${
               getColorByType[pokemon.types[0].type.name].text
             }`}
           >
@@ -26,11 +26,11 @@ const PokemonCard: React.FC<PokemonCardProps> = ({ pokemon }) => {
           <img
             src={pokemon.sprites.other['official-artwork'].front_default}
             alt=''
-            className='w-full h-20'
+            className='lg:w-11/12'
           />
-          <div className=''>
+          <div className=' w-full'>
             <p
-              className={`text-xxs text-center text-white capitalize ${
+              className={`text-xxs md:text-xs lg:text-sm text-center text-white capitalize ${
                 getColorByType[pokemon.types[0].type.name].bg
               }`}
             >
