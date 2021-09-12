@@ -60,7 +60,9 @@ export default function Home() {
       ) : (
         <ol className='flex flex-row flex-wrap justify-center gap-5 py-4 list-none'>
           {data
-            .filter((item) => item.name.includes(filter))
+            .filter((item) =>
+              item.name.toLowerCase().includes(filter.toLowerCase())
+            )
             .map((item, i) => (
               <PokemonCard pokemon={item} key={i} />
             ))}

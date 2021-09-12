@@ -80,7 +80,7 @@ const PokemonPage = () => {
         <img
           src='/icons/chevron-left.svg'
           alt=''
-          className='md:w-3 cursor-pointer'
+          className='w-3 cursor-pointer'
           onClick={() => {
             const id = data.id > 1 ? data.id - 1 : 897;
             router.replace(`/pokemon/` + id);
@@ -94,7 +94,7 @@ const PokemonPage = () => {
         <img
           src='/icons/chevron-left.svg'
           alt=''
-          className='md:w-3 transform rotate-180 cursor-pointer'
+          className='w-3 transform rotate-180 cursor-pointer'
           onClick={() => {
             const id = data.id < 897 ? data.id + 1 : 1;
             router.replace(`/pokemon/` + id);
