@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import { PokemonCard, LoadingScreen } from '@components/index';
+import { PokemonCard, LoadingScreen, Pagination } from '@components/index';
 import { getAllPokemons } from '@services/pokemon';
 import { IPokemon } from '@typings/Pokemon/Pokemon';
 import { useCallback, useEffect, useState } from 'react';
@@ -7,8 +7,11 @@ import _ from 'lodash';
 
 export default function Home() {
   const [data, setData] = useState<IPokemon[]>([]);
+  const [page, setPage] = useState<number>(1);
+  const [lastPage, setLastPage] = useState<number>(1);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [filter, setFilter] = useState<string>('');
+  const PAGE_SIZE = 27;
 
   const fetchData = useCallback(async () => {
     const res = await getAllPokemons({ limit: '897' }).then((r) => {
@@ -23,9 +26,22 @@ export default function Home() {
   }, [fetchData]);
 
   const filterByText = _.debounce(
-    useCallback((text) => {
-      setFilter(text);
-    }, []),
+    useCallback(
+      (text: string) => {
+        if (!filter.length) {
+          setLastPage(page);
+        }
+
+        setFilter(text);
+
+        if (!text.length) {
+          setPage(lastPage);
+        } else {
+          setPage(1);
+        }
+      },
+      [lastPage, page, filter]
+    ),
     100
   );
 
@@ -47,14 +63,26 @@ export default function Home() {
           }}
         />
       </div>
-      <input
-        type='text'
-        name=''
-        id=''
-        className='bg-backgroung border-lightGray placeholder-mediumGray text-xxs lg:text-sm lg:px-4 lg:py-2 px-2 py-1 mt-3 border border-solid rounded-lg'
-        placeholder='Search'
-        onChange={(e) => filterByText(e.target.value)}
-      />
+      <form className='flex flex-col w-full'>
+        <input
+          type='text'
+          name=''
+          id=''
+          className='bg-backgroung border-lightGray placeholder-mediumGray text-xxs lg:text-sm lg:px-4 lg:py-2 px-2 py-1 mt-3 border border-solid rounded-lg'
+          placeholder='Search'
+          onChange={(e) => filterByText(e.target.value)}
+        />
+        <Pagination
+          currentPage={page}
+          setCurrentPage={setPage}
+          itemsPerPage={PAGE_SIZE}
+          total={
+            data.filter((item) =>
+              item.name.toLowerCase().includes(filter.toLowerCase())
+            ).length
+          }
+        />
+      </form>
       {isLoading ? (
         <LoadingScreen />
       ) : (
@@ -63,6 +91,7 @@ export default function Home() {
             .filter((item) =>
               item.name.toLowerCase().includes(filter.toLowerCase())
             )
+            .slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE)
             .map((item, i) => (
               <PokemonCard pokemon={item} key={i} />
             ))}
