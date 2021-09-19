@@ -105,7 +105,7 @@ export default function Home() {
           {status === 'authenticated' ? (
             <div className='gap-x-4 md:text-base flex flex-row items-center text-xs'>
               <p>Welcome, {session.user.name}!</p>
-              <Link href='/api/auth/signin'>
+              <Link href='/api/auth/signout'>
                 <a className='border-darkGray w-max px-2 py-1 border rounded-md'>
                   Sign Out
                 </a>
@@ -146,6 +146,7 @@ export default function Home() {
               className='lg:w-8 -mb-2 cursor-pointer'
               onClick={() => {
                 setData([...data.reverse()]);
+                setPage(1);
               }}
             />
           </div>
@@ -160,7 +161,9 @@ export default function Home() {
                 className={cs('cursor-pointer -mb-3', {
                   'opacity-50': !catched,
                 })}
-                onClick={() => setCatched(!catched)}
+                onClick={() => {
+                  setCatched(!catched), setPage(1);
+                }}
               >
                 <path
                   d='M 30 50
@@ -212,9 +215,27 @@ export default function Home() {
           setCurrentPage={setPage}
           itemsPerPage={PAGE_SIZE}
           total={
-            data.filter((item) =>
-              item.name.toLowerCase().includes(filter.toLowerCase())
-            ).length
+            data
+              .slice(region.min - 1, region.max)
+              .filter((item) => {
+                if (catched) {
+                  return session.user.catchedPokemons.includes(item.id);
+                }
+
+                return true;
+              })
+              .filter((item) => {
+                if (typeFilter.length) {
+                  return item.types.find((t) =>
+                    typeFilter.includes(t.type.name as pokemonType)
+                  );
+                }
+
+                return true;
+              })
+              .filter((item) =>
+                item.name.toLowerCase().includes(filter.toLowerCase())
+              ).length
           }
         />
       </form>
