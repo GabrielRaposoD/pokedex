@@ -6,9 +6,11 @@
     "start": "next start"
   },
   "dependencies": {
+    "@headlessui/react": "^1.4.1",
     "@heroicons/react": "^1.0.4",
     "@next-auth/prisma-adapter": "^0.5.2-next.5",
     "@prisma/client": "^3.0.2",
+    "@tailwindcss/forms": "^0.3.3",
     "axios": "^0.21.4",
     "clsx": "^1.1.1",
     "lodash": "^4.17.21",

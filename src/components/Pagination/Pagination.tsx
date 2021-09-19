@@ -25,7 +25,7 @@ const Pagination: React.FC<PaginationProps> = ({
   const PAGE_TOTAL = Math.ceil(total / itemsPerPage);
 
   return (
-    <div className='sm:px-6 flex items-center justify-between px-4 py-3 bg-white border-t border-gray-200'>
+    <div className='sm:px-6 flex items-center justify-between px-4 py-3 bg-white'>
       <div className='sm:hidden flex justify-between flex-1'>
         <button
           type='button'
