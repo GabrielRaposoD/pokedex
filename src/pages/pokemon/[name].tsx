@@ -12,11 +12,16 @@ import { TypeTag, LoadingScreen } from '@components/index';
 import ErrorPage from 'next/error';
 import Link from 'next/link';
 import { pokemonType } from '@typings/pokemon';
+import cs from 'clsx';
+import Router from 'next/router';
+
+import { useSession } from 'next-auth/react';
 
 const PokemonPage = () => {
   const router = useRouter();
   const [error, setError] = useState<boolean>(false);
   const { name } = router.query;
+  const { data: session } = useSession();
 
   const [data, setData] = useState<IPokemon>(null);
   const [description, setDescription] = useState<string>('');
@@ -93,7 +98,7 @@ const PokemonPage = () => {
         <img
           src={data.sprites.other['official-artwork'].front_default}
           alt=''
-          className='left-1/4 md:w-4/12 md:left-1/2 md:transform md:-translate-x-1/2 md:-top-32 absolute w-1/2 top-[-105px] lg:-top-52 xl:top-[-340px] 2xl:w-3/12'
+          className='left-1/4 md:w-4/12 md:left-1/2 md:transform md:-translate-x-1/2 md:-top-32 absolute w-1/2 top-[-105px] lg:-top-52 xl:top-[-340px] 2xl:w-3/12 z-20'
         />
         <img
           src='/icons/chevron-left.svg'
@@ -105,16 +110,13 @@ const PokemonPage = () => {
           }}
         />
       </div>
-      <section className='w-auto h-full mx-1.5 bg-white rounded-lg md:mt-10 mt-4 flex flex-col lg:pb-7 flex-grow'>
+      <section className='w-auto h-full mx-1.5 bg-white rounded-lg md:mt-10 mt-4 flex flex-col lg:pb-7 flex-grow relative z-0'>
         <div className='gap-x-4 flex flex-row items-center justify-center w-full mt-20'>
           {data.types.map((t, i) => (
             <TypeTag type={t.type.name as pokemonType} key={i} />
           ))}
         </div>
         <p
-          onClick={() => {
-            setCatchedPokemon(data.id);
-          }}
           className={`text-center font-bold text-sm mt-3 md:text-xl ${
             getColorByType[data.types[0].type.name].text
           }`}
@@ -200,6 +202,36 @@ const PokemonPage = () => {
             ))}
           </div>
         </div>
+        <svg
+          xmlns='http://www.w3.org/2000/svg'
+          width='60px'
+          height='60px'
+          viewBox='0 0 100 100'
+          className={cs('absolute top-0 right-0 cursor-pointer', {
+            'opacity-50': !session.user.catchedPokemons.includes(data.id),
+          })}
+          onClick={() => setCatchedPokemon(data.id).then(() => Router.reload())}
+        >
+          <path
+            d='M 30 50
+		a 1 1 1 0 1 40 0
+		h-12.5
+		a 1 1 1 0 0 -15 0
+		z'
+            fill='#f00'
+            stroke='#222'
+          ></path>
+          <circle cx='50' cy='50' r='5' fill='#222' stroke='#222'></circle>
+          <path
+            d='M 30 50
+		a 1 1 1 0 0 40 0
+		h-12.5
+		a 1 1 1 0 1 -15 0
+		z'
+            fill='#fff'
+            stroke='#222'
+          ></path>
+        </svg>
       </section>
     </div>
   );
