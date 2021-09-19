@@ -4,4 +4,6 @@ const apiClient = axios.create({
   baseURL: 'https://pokeapi.co/api/v2',
 });
 
-export { apiClient };
+const baseClient = axios.create({ baseURL: 'http://localhost:3000/api' });
+
+export { apiClient, baseClient };

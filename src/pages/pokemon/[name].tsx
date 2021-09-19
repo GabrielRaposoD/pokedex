@@ -1,6 +1,10 @@
 /* eslint-disable @next/next/no-img-element */
 import { useRouter } from 'next/router';
-import { getPokemon, getPokemonDescription } from '@services/pokemon';
+import {
+  getPokemon,
+  getPokemonDescription,
+  setCatchedPokemon,
+} from '@services/pokemon';
 import { useCallback, useEffect, useState } from 'react';
 import { IPokemon } from '@typings/Pokemon/Pokemon';
 import { getColorByType } from 'utils/getColorByType';
@@ -108,6 +112,9 @@ const PokemonPage = () => {
           ))}
         </div>
         <p
+          onClick={() => {
+            setCatchedPokemon(data.id);
+          }}
           className={`text-center font-bold text-sm mt-3 md:text-xl ${
             getColorByType[data.types[0].type.name].text
           }`}

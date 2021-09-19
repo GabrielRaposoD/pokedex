@@ -1,6 +1,6 @@
 import { IPokemonSpecies } from '@typings/Pokemon/PokemonSpecies';
 import { IPokemon } from '@typings/Pokemon/Pokemon';
-import { apiClient } from './api';
+import { apiClient, baseClient } from './api';
 
 interface pokeApiQuery {
   offset?: string;
@@ -29,4 +29,12 @@ const getAllPokemons = async (query?: pokeApiQuery) => {
   return res;
 };
 
-export { getPokemon, getAllPokemons, getPokemonDescription };
+const setCatchedPokemon = async (id: number) => {
+  const res = await baseClient.post('/pokemon', {
+    pokemonId: id,
+  });
+
+  return res;
+};
+
+export { getPokemon, getAllPokemons, getPokemonDescription, setCatchedPokemon };
