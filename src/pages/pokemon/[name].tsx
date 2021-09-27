@@ -208,7 +208,7 @@ const PokemonPage = () => {
           height='60px'
           viewBox='0 0 100 100'
           className={cs('absolute top-0 right-0 cursor-pointer', {
-            'opacity-50': !session.user.catchedPokemons.includes(data.id),
+            'opacity-50': !session?.user?.catchedPokemons.includes(data.id),
           })}
           onClick={() => setCatchedPokemon(data.id).then(() => Router.reload())}
         >
