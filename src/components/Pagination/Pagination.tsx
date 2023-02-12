@@ -78,7 +78,7 @@ const Pagination: React.FC<PaginationProps> = ({
               <span className='sr-only'>Previous</span>
               <ChevronLeftIcon className='w-5 h-5' aria-hidden='true' />
             </button>
-            {paginationRange.map((page, i) => {
+            {paginationRange?.map((page, i) => {
               return (
                 <li
                   onClick={() => {

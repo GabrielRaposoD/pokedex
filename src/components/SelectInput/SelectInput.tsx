@@ -6,7 +6,7 @@ import { Fragment } from 'react';
 interface SelectInputProps {
   options: { label: string; [key: string]: any }[];
   selected: { label: string; [key: string]: any };
-  setSelected: (value) => void;
+  setSelected: (value: unknown) => void;
 }
 
 const SelectInput: React.FC<SelectInputProps> = ({

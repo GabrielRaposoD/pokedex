@@ -1,20 +1,19 @@
-export enum pokemonType {
-  'rock' = 'rock',
-  'ghost' = 'ghost',
-  'steel' = 'steel',
-  'water' = 'water',
-  'grass' = 'grass',
-  'psychic' = 'psychic',
-  'ice' = 'ice',
-  'dark' = 'dark',
-  'fairy' = 'fairy',
-  'normal' = 'normal',
-  'fighting' = 'fighting',
-  'flying' = 'flying',
-  'poison' = 'poison',
-  'ground' = 'ground',
-  'bug' = 'bug',
-  'fire' = 'fire',
-  'electric' = 'electric',
-  'dragon' = 'dragon',
-}
+export type pokemonType =
+  | 'rock'
+  | 'ghost'
+  | 'steel'
+  | 'water'
+  | 'grass'
+  | 'psychic'
+  | 'ice'
+  | 'dark'
+  | 'fairy'
+  | 'normal'
+  | 'fighting'
+  | 'flying'
+  | 'poison'
+  | 'ground'
+  | 'bug'
+  | 'fire'
+  | 'electric'
+  | 'dragon';

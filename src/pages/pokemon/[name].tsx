@@ -24,7 +24,7 @@ const PokemonPage = () => {
   const { name } = router.query;
   const { data: session } = useSession();
 
-  const [data, setData] = useState<IPokemon>(null);
+  const [data, setData] = useState<IPokemon | null>(null);
   const [description, setDescription] = useState<string>('');
 
   const fetchData = useCallback(async () => {
@@ -35,7 +35,7 @@ const PokemonPage = () => {
       setDescription(
         desc.data.flavor_text_entries
           .reverse()
-          .find((item) => item.language.name === 'en').flavor_text
+          .find((item) => item.language.name === 'en')?.flavor_text ?? ''
       );
 
       setData(res.data);
@@ -61,7 +61,8 @@ const PokemonPage = () => {
   return (
     <div
       className={`${
-        getColorByType[data.types[0].type.name].bg
+        getColorByType[data.types[0].type.name as keyof typeof getColorByType]
+          .bg
       } relative min-h-screen lg:h-full lg:max-h-full max-h-screen pb-1.5 flex flex-col`}
     >
       <div className='px-7 flex flex-row items-center w-full pt-5'>
@@ -113,7 +114,9 @@ const PokemonPage = () => {
         </div>
         <p
           className={`text-center font-bold text-sm mt-3 md:text-xl ${
-            getColorByType[data.types[0].type.name].text
+            getColorByType[
+              data.types[0].type.name as keyof typeof getColorByType
+            ].text
           }`}
         >
           About
@@ -153,7 +156,9 @@ const PokemonPage = () => {
         </p>
         <p
           className={`text-center font-bold text-sm mt-3 lg:mt-5 md:text-xl ${
-            getColorByType[data.types[0].type.name].text
+            getColorByType[
+              data.types[0].type.name as keyof typeof getColorByType
+            ].text
           }`}
         >
           Base Stats
@@ -161,7 +166,9 @@ const PokemonPage = () => {
         <div className='flex flex-row w-full px-5 mt-3'>
           <div
             className={`flex flex-col text-right font-bold text-xxs border-r pr-2 md:text-sm ${
-              getColorByType[data.types[0].type.name].text
+              getColorByType[
+                data.types[0].type.name as keyof typeof getColorByType
+              ].text
             }`}
           >
             <p>HP</p>
@@ -180,7 +187,9 @@ const PokemonPage = () => {
                 <div className='relative w-full'>
                   <div
                     className={`flex h-1 overflow-hidden text-xs bg-opacity-20 ${
-                      getColorByType[data.types[0].type.name].bg
+                      getColorByType[
+                        data.types[0].type.name as keyof typeof getColorByType
+                      ].bg
                     } rounded`}
                   >
                     <div
@@ -188,7 +197,9 @@ const PokemonPage = () => {
                         width: ((s.base_stat / 255) * 100).toString() + '%',
                       }}
                       className={`whitespace-nowrap flex flex-col justify-center text-center text-white ${
-                        getColorByType[data.types[0].type.name].bg
+                        getColorByType[
+                          data.types[0].type.name as keyof typeof getColorByType
+                        ].bg
                       } shadow-none`}
                     ></div>
                   </div>
