@@ -1,4 +1,5 @@
-import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/solid';
+import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/solid';
+
 import cs from 'clsx';
 import { usePagination } from 'hooks/usePagination';
 

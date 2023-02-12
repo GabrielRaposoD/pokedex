@@ -1,6 +1,7 @@
-import { Fragment } from 'react';
+import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/24/solid';
 import { Listbox, Transition } from '@headlessui/react';
-import { CheckIcon, SelectorIcon } from '@heroicons/react/solid';
+
+import { Fragment } from 'react';
 
 interface SelectInputProps {
   options: { label: string; [key: string]: any }[];
@@ -20,7 +21,7 @@ const SelectInput: React.FC<SelectInputProps> = ({
           <Listbox.Button className='focus:outline-none focus-visible:ring-2 focus-visible:ring-opacity-75 focus-visible:ring-white focus-visible:ring-offset-orange-300 focus-visible:ring-offset-2 sm:text-sm border-lightGray text-xxs lg:text-sm lg:px-4 lg:py-2 relative w-full px-2 py-1 mt-3 text-left bg-white border rounded-lg shadow-md cursor-default'>
             <span className='block truncate'>{selected.label}</span>
             <span className='absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none'>
-              <SelectorIcon
+              <ChevronUpDownIcon
                 className='text-darkGray w-5 h-5'
                 aria-hidden='true'
               />

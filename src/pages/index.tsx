@@ -1,20 +1,21 @@
 /* eslint-disable @next/next/no-img-element */
+
+import { ChangeEvent, useCallback, useEffect, useState } from 'react';
 import {
-  PokemonCard,
   LoadingScreen,
   Pagination,
-  TypeTag,
+  PokemonCard,
   SelectInput,
+  TypeTag,
 } from '@components/index';
-import { getAllPokemons } from '@services/pokemon';
-import { IPokemon } from '@typings/Pokemon/Pokemon';
-import { ChangeEvent, useCallback, useEffect, useState } from 'react';
-import _ from 'lodash';
-import Link from 'next/link';
 
-import { useSession } from 'next-auth/react';
-import { pokemonType } from '@typings/pokemon';
+import { IPokemon } from '@typings/Pokemon/Pokemon';
+import Link from 'next/link';
+import _ from 'lodash';
 import cs from 'clsx';
+import { getAllPokemons } from '@services/pokemon';
+import { pokemonType } from '@typings/pokemon';
+import { useSession } from 'next-auth/react';
 
 const regions = [
   { label: 'All', min: 1, max: 897 },
@@ -105,17 +106,19 @@ export default function Home() {
           {status === 'authenticated' ? (
             <div className='gap-x-4 md:text-base flex flex-row items-center text-xs'>
               <p>Welcome, {session.user.name}!</p>
-              <Link href='/api/auth/signout'>
-                <a className='border-darkGray w-max px-2 py-1 border rounded-md'>
-                  Sign Out
-                </a>
+              <Link
+                href='/api/auth/signout'
+                className='border-darkGray w-max px-2 py-1 border rounded-md'
+              >
+                Sign Out
               </Link>
             </div>
           ) : (
-            <Link href='/api/auth/signin'>
-              <a className='border-darkGray px-2 py-1 border rounded-md'>
-                Sign In
-              </a>
+            <Link
+              href='/api/auth/signin'
+              className='border-darkGray px-2 py-1 border rounded-md'
+            >
+              Sign In
             </Link>
           )}
         </div>

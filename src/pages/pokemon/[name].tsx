@@ -1,20 +1,21 @@
 /* eslint-disable @next/next/no-img-element */
-import { useRouter } from 'next/router';
+
+import { LoadingScreen, TypeTag } from '@components/index';
 import {
   getPokemon,
   getPokemonDescription,
   setCatchedPokemon,
 } from '@services/pokemon';
 import { useCallback, useEffect, useState } from 'react';
-import { IPokemon } from '@typings/Pokemon/Pokemon';
-import { getColorByType } from 'utils/getColorByType';
-import { TypeTag, LoadingScreen } from '@components/index';
-import ErrorPage from 'next/error';
-import Link from 'next/link';
-import { pokemonType } from '@typings/pokemon';
-import cs from 'clsx';
-import Router from 'next/router';
 
+import ErrorPage from 'next/error';
+import { IPokemon } from '@typings/Pokemon/Pokemon';
+import Link from 'next/link';
+import Router from 'next/router';
+import cs from 'clsx';
+import { getColorByType } from 'utils/getColorByType';
+import { pokemonType } from '@typings/pokemon';
+import { useRouter } from 'next/router';
 import { useSession } from 'next-auth/react';
 
 const PokemonPage = () => {
@@ -65,13 +66,7 @@ const PokemonPage = () => {
     >
       <div className='px-7 flex flex-row items-center w-full pt-5'>
         <Link href='/'>
-          <a>
-            <img
-              src='/icons/arrow-left.svg'
-              alt=''
-              className='cursor-pointer'
-            />
-          </a>
+          <img src='/icons/arrow-left.svg' alt='' className='cursor-pointer' />
         </Link>
         <h2 className='md:text-3xl ml-4 text-2xl font-bold text-white capitalize'>
           {data.name}

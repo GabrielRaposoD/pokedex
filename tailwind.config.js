@@ -66,7 +66,7 @@ module.exports = {
       ],
     },
   },
-  darkMode: false, // or 'media' or 'class'
+  darkMode: 'media',
   theme: {
     extend: {
       colors: {
