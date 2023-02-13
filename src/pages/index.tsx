@@ -90,49 +90,6 @@ export default function Home() {
               }}
             />
           </li>
-          {status === 'authenticated' && (
-            <div className='flex flex-col justify-between h-16'>
-              <p className='text-darkGray text-xs font-bold'>Catched Only</p>
-              <svg
-                xmlns='http://www.w3.org/2000/svg'
-                width='60px'
-                height='60px'
-                viewBox='0 0 100 100'
-                className={cs('cursor-pointer -mb-3', {
-                  'opacity-50': !catched,
-                })}
-                onClick={() => {
-                  setCatched(!catched), setPage(1);
-                }}
-              >
-                <path
-                  d='M 30 50
-      a 1 1 1 0 1 40 0
-      h-12.5
-      a 1 1 1 0 0 -15 0
-      z'
-                  fill='#f00'
-                  stroke='#222'
-                ></path>
-                <circle
-                  cx='50'
-                  cy='50'
-                  r='5'
-                  fill='#222'
-                  stroke='#222'
-                ></circle>
-                <path
-                  d='M 30 50
-      a 1 1 1 0 0 40 0
-      h-12.5
-      a 1 1 1 0 1 -15 0
-      z'
-                  fill='#fff'
-                  stroke='#222'
-                ></path>
-              </svg>
-            </div>
-          )}
         </ul>
         <div className='flex flex-row flex-wrap gap-2 my-4'></div>
 
