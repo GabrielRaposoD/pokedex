@@ -54,7 +54,7 @@ export default function Home() {
         <div className='gap-x-10 flex flex-row items-center justify-between'>
           {status === 'authenticated' ? (
             <div className='gap-x-4 md:text-base flex flex-row items-center text-xs'>
-              <p>Welcome, {session.user.name}!</p>
+              <p>Welcome, {session?.user.name}!</p>
               <Link
                 href='/api/auth/signout'
                 className='border-darkGray w-max px-2 py-1 border rounded-md'
