@@ -8,11 +8,9 @@ import {
   SelectInput,
 } from '@components/index';
 
-import { IPokemon } from '@typings/Pokemon/Pokemon';
 import Link from 'next/link';
 import _ from 'lodash';
 import cs from 'clsx';
-import { getAllPokemons } from '@services/pokemon';
 import { pokemonType } from '@typings/pokemon';
 import regions from 'constants/regions';
 import { usePokemons } from 'hooks/usePokemons';
@@ -22,6 +20,7 @@ export default function Home() {
   const [page, setPage] = useState<number>(1);
   const [typeFilter, setTypeFilter] = useState<pokemonType[]>([]);
   const [catched, setCatched] = useState<boolean>(false);
+  const [reverse, setReverse] = useState<boolean>(false);
   const [region, setRegion] = useState(regions[0]);
   const [lastPage, setLastPage] = useState<number>(1);
   const [filter, setFilter] = useState<string>('');
@@ -32,8 +31,11 @@ export default function Home() {
     page,
     PAGE_SIZE,
     region.min,
-    region.max
+    region.max,
+    reverse
   );
+
+  console.log(pokemons);
 
   const { data: session, status } = useSession();
 
@@ -128,8 +130,9 @@ export default function Home() {
             <img
               src='/icons/sort.svg'
               alt=''
-              className='lg:w-8 -mb-2 cursor-pointer'
+              className='w-8 -mb-2 cursor-pointer'
               onClick={() => {
+                setReverse((r) => !r);
                 setPage(1);
               }}
             />

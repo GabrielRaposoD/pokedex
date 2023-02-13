@@ -5,31 +5,44 @@ const usePokemons = (
   page: number,
   limit: number,
   regionStart: number,
-  regionEnd: number
+  regionEnd: number,
+  reverse = false
 ) => {
   const {
     status,
     data: pokemons,
     error,
   } = useQuery({
-    queryKey: ['pokemons', page, regionStart, regionEnd],
+    queryKey: ['pokemons', page, regionStart, regionEnd, reverse],
     queryFn: async () => {
-      let offset = page * limit - limit + regionStart - 1;
+      let offset = (page - 1) * limit + regionStart - 1;
+
+      if (reverse) {
+        offset = regionEnd - (page - 1) * limit - limit;
+
+        if (offset <= 0) {
+          limit = limit + offset;
+          offset = regionStart - 1;
+        }
+      }
 
       if (offset + limit > regionEnd) {
         limit = regionEnd - offset;
       }
 
-      return await getAllPokemons({
-        offset: offset.toString(),
-        limit: limit.toString(),
-      });
+      return await getAllPokemons(
+        {
+          offset: offset.toString(),
+          limit: limit.toString(),
+        },
+        reverse
+      );
     },
     retry: false,
     keepPreviousData: true,
   });
 
-  return { status, error, pokemons };
+  return { status, error, pokemons: pokemons };
 };
 
 export { usePokemons };

@@ -27,13 +27,16 @@ const getPokemonDescription = async (name: string | number) => {
 };
 
 const getAllPokemons = async (
-  query: pokeApiQuery = { offset: '0', limit: '27' }
+  query: pokeApiQuery = { offset: '0', limit: '27' },
+  reverse = false
 ) => {
   const { data } = await apiClient.get<IPokemons>('/pokemon', {
     params: query,
   });
 
-  console.log(data);
+  if (reverse) {
+    data.results.reverse();
+  }
 
   return data.results;
 };
