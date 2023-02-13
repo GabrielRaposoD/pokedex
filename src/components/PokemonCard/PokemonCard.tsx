@@ -13,7 +13,14 @@ const PokemonCard: React.FC<PokemonCardProps> = ({ pokemon }) => {
   const { data } = usePokemon(pokemon);
 
   if (!data) {
-    return <></>;
+    return (
+      <div
+        role='status'
+        className='rounded-lg lg:h-48 lg:w-44 md:h-44 md:w-40 h-28 w-24 animate-pulse bg-slate-200 shadow-xl'
+      >
+        <span className='sr-only'>Loading...</span>
+      </div>
+    );
   }
 
   return (
