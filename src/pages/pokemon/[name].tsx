@@ -1,6 +1,10 @@
 /* eslint-disable @next/next/no-img-element */
 
-import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/solid';
+import {
+  ArrowLeftIcon,
+  ChevronLeftIcon,
+  ChevronRightIcon,
+} from '@heroicons/react/24/solid';
 import { LoadingScreen, TypeTag } from '@components/index';
 
 import ErrorPage from 'next/error';
@@ -20,8 +24,6 @@ const PokemonPage = () => {
   const { data: session } = useSession();
   const { data, status } = usePokemon(name as string);
 
-  console.log(!!session);
-
   if (status === 'error') {
     return <ErrorPage statusCode={404} />;
   }
@@ -38,7 +40,7 @@ const PokemonPage = () => {
     >
       <div className='px-7 flex flex-row items-center w-full pt-5'>
         <Link href='/'>
-          <img src='/icons/arrow-left.svg' alt='' className='cursor-pointer' />
+          <ArrowLeftIcon className='cursor-pointer text-white w-6' />
         </Link>
         <h2 className='md:text-3xl ml-4 text-2xl font-bold text-white capitalize'>
           {data.pokemon.name}
@@ -108,8 +110,8 @@ const PokemonPage = () => {
             </div>
             <p className='text-mediumGray text-xxxs md:text-xs'>Height</p>
           </div>
-          <div className='flex flex-col items-center justify-between h-full pl-6'>
-            <div className='flex flex-col items-center pt-1.5 capitalize'>
+          <div className='flex flex-col items-center justify-between h-full px-6 pt-1.5 md:min-h-[60px] min-h-[50px]'>
+            <div className='flex flex-col items-center capitalize'>
               {data.pokemon.abilities.map((a, i) => (
                 <p key={i} className='text-darkGray text-xxs md:text-xs'>
                   {a.ability.name.replace('-', ' ')}
