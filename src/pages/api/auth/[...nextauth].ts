@@ -22,8 +22,8 @@ const options: AuthOptions = {
     }),
   ],
   callbacks: {
-    async session({ session }) {
-      return session;
+    async session({ session, user }) {
+      return { ...session, user: { ...user } as Session['user'] };
     },
   },
 

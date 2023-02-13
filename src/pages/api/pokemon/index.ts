@@ -14,7 +14,7 @@ export default async function handle(
   const session: Session | null = await getSession({ req });
 
   if (session) {
-    let array: number[] = session.user.catchedPokemons ?? [];
+    let array: number[] = session.user.catchedPokemons;
 
     array.includes(pokemonId)
       ? (array = _.remove(array, (i) => {
@@ -24,7 +24,7 @@ export default async function handle(
 
     const result = await prisma.user.update({
       where: {
-        id: session.user.id,
+        email: session.user.email,
       },
       data: {
         catchedPokemons: {
