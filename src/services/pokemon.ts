@@ -9,13 +9,22 @@ interface pokeApiQuery {
 }
 
 const getPokemon = async (name: string) => {
-  const { data } = await apiClient.get<IPokemon>(`/pokemon/${name}`);
+  const { data: pokemonData } = await apiClient.get<IPokemon>(
+    `/pokemon/${name}`
+  );
+
+  const pokemonSpeciesData = await getPokemonDescription(pokemonData.id);
+
+  return { pokemon: pokemonData, description: pokemonSpeciesData };
+};
+
+const getPokemonDescription = async (name: string | number) => {
+  const { data } = await apiClient.get<IPokemonSpecies>(
+    `/pokemon-species/${name}`
+  );
 
   return data;
 };
-
-const getPokemonDescription = async (name: string) =>
-  await apiClient.get<IPokemonSpecies>(`/pokemon-species/${name}`);
 
 const getAllPokemons = async (
   query: pokeApiQuery = { offset: '0', limit: '27' }
