@@ -84,3 +84,10 @@ export interface ILocationAreaEncounter {
   location_area: INamedApiResource;
   version_details: IVersionEncounterDetail[];
 }
+
+export interface IPokemons {
+  count: number;
+  next: string;
+  previous: string;
+  results: Array<INamedApiResource>;
+}

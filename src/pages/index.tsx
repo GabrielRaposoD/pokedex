@@ -1,12 +1,11 @@
 /* eslint-disable @next/next/no-img-element */
 
-import { ChangeEvent, useCallback, useEffect, useState } from 'react';
+import { ChangeEvent, useCallback, useState } from 'react';
 import {
   LoadingScreen,
   Pagination,
   PokemonCard,
   SelectInput,
-  TypeTag,
 } from '@components/index';
 
 import { IPokemon } from '@typings/Pokemon/Pokemon';
@@ -16,33 +15,27 @@ import cs from 'clsx';
 import { getAllPokemons } from '@services/pokemon';
 import { pokemonType } from '@typings/pokemon';
 import regions from 'constants/regions';
+import { usePokemons } from 'hooks/usePokemons';
 import { useSession } from 'next-auth/react';
 
 export default function Home() {
-  const [data, setData] = useState<IPokemon[]>([]);
   const [page, setPage] = useState<number>(1);
   const [typeFilter, setTypeFilter] = useState<pokemonType[]>([]);
   const [catched, setCatched] = useState<boolean>(false);
   const [region, setRegion] = useState(regions[0]);
   const [lastPage, setLastPage] = useState<number>(1);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [filter, setFilter] = useState<string>('');
 
   const PAGE_SIZE = 27;
 
+  const { pokemons, status: fetchStatus } = usePokemons(
+    page,
+    PAGE_SIZE,
+    region.min,
+    region.max
+  );
+
   const { data: session, status } = useSession();
-
-  const fetchData = useCallback(async () => {
-    const res = await getAllPokemons({ limit: '897' }).then((r) => {
-      setIsLoading(false);
-      return r;
-    });
-    setData(res);
-  }, []);
-
-  useEffect(() => {
-    fetchData();
-  }, [fetchData]);
 
   const handleRegionFilter = (value: any) => {
     setRegion(value);
@@ -137,7 +130,6 @@ export default function Home() {
               alt=''
               className='lg:w-8 -mb-2 cursor-pointer'
               onClick={() => {
-                setData([...data.reverse()]);
                 setPage(1);
               }}
             />
@@ -204,62 +196,18 @@ export default function Home() {
 
         <Pagination
           currentPage={page}
-          setCurrentPage={setPage}
           itemsPerPage={PAGE_SIZE}
-          total={
-            data
-              .slice(region.min - 1, region.max)
-              .filter((item) => {
-                if (catched) {
-                  return session?.user.catchedPokemons.includes(item.id);
-                }
-
-                return true;
-              })
-              .filter((item) => {
-                if (typeFilter.length) {
-                  return item.types.find((t) =>
-                    typeFilter.includes(t.type.name as pokemonType)
-                  );
-                }
-
-                return true;
-              })
-              .filter((item) =>
-                item.name.toLowerCase().includes(filter.toLowerCase())
-              ).length
-          }
+          total={region.max - region.min + 1}
+          setCurrentPage={setPage}
         />
       </form>
-      {isLoading ? (
+      {fetchStatus !== 'success' ? (
         <LoadingScreen />
       ) : (
         <ol className='flex flex-row flex-wrap justify-center gap-5 py-4 list-none'>
-          {data
-            .slice(region.min - 1, region.max)
-            .filter((item) => {
-              if (catched) {
-                return session?.user.catchedPokemons.includes(item.id);
-              }
-
-              return true;
-            })
-            .filter((item) => {
-              if (typeFilter.length) {
-                return item.types.find((t) =>
-                  typeFilter.includes(t.type.name as pokemonType)
-                );
-              }
-
-              return true;
-            })
-            .filter((item) =>
-              item.name.toLowerCase().includes(filter.toLowerCase())
-            )
-            .slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE)
-            .map((item, i) => (
-              <PokemonCard pokemon={item} key={i} />
-            ))}
+          {pokemons?.map((pokemon, i) => (
+            <PokemonCard pokemon={pokemon.name} key={i} />
+          ))}
         </ol>
       )}
     </section>
