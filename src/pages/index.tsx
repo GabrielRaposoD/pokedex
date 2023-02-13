@@ -35,47 +35,12 @@ export default function Home() {
     reverse
   );
 
-  console.log(pokemons);
-
   const { data: session, status } = useSession();
 
   const handleRegionFilter = (value: any) => {
     setRegion(value);
     setPage(1);
   };
-
-  const handleTypeFilter = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.checked) {
-      setTypeFilter([...typeFilter, e.target.value as pokemonType]);
-    } else {
-      setTypeFilter(
-        _.remove(typeFilter, (value) => {
-          return value !== e.target.value;
-        })
-      );
-    }
-    setPage(1);
-  };
-
-  const filterByText = _.debounce(
-    useCallback(
-      (text: string) => {
-        if (!filter.length) {
-          setLastPage(page);
-        }
-
-        setFilter(text);
-
-        if (!text.length) {
-          setPage(lastPage);
-        } else {
-          setPage(1);
-        }
-      },
-      [lastPage, page, filter]
-    ),
-    100
-  );
 
   return (
     <section className='flex flex-col min-h-screen px-5 py-6 overflow-hidden'>
@@ -108,14 +73,6 @@ export default function Home() {
         </div>
       </header>
       <form className='flex flex-col w-full'>
-        <input
-          type='text'
-          name=''
-          id=''
-          className='border-lightGray placeholder-mediumGray text-xxs lg:text-sm lg:px-4 lg:py-2 px-2 py-1 mt-3 bg-white border border-solid rounded-lg shadow-md'
-          placeholder='Search Pokemon'
-          onChange={(e) => filterByText(e.target.value)}
-        />
         <div className='flex flex-row flex-wrap items-center gap-5 my-4'>
           <div className='flex flex-col justify-between h-16'>
             <p className='text-darkGray text-xs font-bold'>Regions</p>
@@ -181,21 +138,7 @@ export default function Home() {
             </div>
           )}
         </div>
-        <div className='flex flex-row flex-wrap gap-2 my-4'>
-          {/* {Object.keys(keyof pokemonType).map((type: pokemonType) => (
-            <div className='flex flex-row items-center gap-2' key={type}>
-              <input
-                type='checkbox'
-                name=''
-                id=''
-                value={type}
-                className='rounded-xl'
-                onChange={(e) => handleTypeFilter(e)}
-              />
-              <TypeTag type={type} />
-            </div>
-          ))} */}
-        </div>
+        <div className='flex flex-row flex-wrap gap-2 my-4'></div>
 
         <Pagination
           currentPage={page}

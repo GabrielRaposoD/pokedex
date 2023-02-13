@@ -20,8 +20,8 @@ const usePokemons = (
       if (reverse) {
         offset = regionEnd - (page - 1) * limit - limit;
 
-        if (offset <= 0) {
-          limit = limit + offset;
+        if (offset <= regionStart) {
+          limit = limit + offset - regionStart + 1;
           offset = regionStart - 1;
         }
       }
