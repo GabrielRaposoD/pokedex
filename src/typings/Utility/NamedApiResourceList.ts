@@ -1,13 +1,13 @@
 import { pokemonType } from '@typings/pokemon';
 
-export interface INamedApiResource<T> {
+export interface INamedApiResource {
   name: string | pokemonType;
   url: string;
 }
 
-export interface INamedApiResourceList<T> {
+export interface INamedApiResourceList {
   count: number;
   next: string;
   previous: string;
-  results: Array<INamedApiResource<T>>;
+  results: Array<INamedApiResource>;
 }
