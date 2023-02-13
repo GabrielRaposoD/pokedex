@@ -1,7 +1,9 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { prisma } from 'lib/prisma';
-import { getSession } from 'next-auth/react';
+
+import { Session } from 'next-auth';
 import _ from 'lodash';
+import { getSession } from 'next-auth/react';
+import { prisma } from 'lib/prisma';
 
 export default async function handle(
   req: NextApiRequest,
@@ -9,10 +11,10 @@ export default async function handle(
 ) {
   const { pokemonId } = req.body;
 
-  const session: any = await getSession({ req });
+  const session: Session | null = await getSession({ req });
 
   if (session) {
-    let array: number[] = session.user.catchedPokemons;
+    let array: number[] = session.user.catchedPokemons ?? [];
 
     array.includes(pokemonId)
       ? (array = _.remove(array, (i) => {

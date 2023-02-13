@@ -1,6 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
 
-import { ChangeEvent, useCallback, useState } from 'react';
 import {
   LoadingScreen,
   Pagination,
@@ -11,19 +10,16 @@ import {
 import Link from 'next/link';
 import _ from 'lodash';
 import cs from 'clsx';
-import { pokemonType } from '@typings/pokemon';
 import regions from 'constants/regions';
 import { usePokemons } from 'hooks/usePokemons';
 import { useSession } from 'next-auth/react';
+import { useState } from 'react';
 
 export default function Home() {
   const [page, setPage] = useState<number>(1);
-  const [typeFilter, setTypeFilter] = useState<pokemonType[]>([]);
   const [catched, setCatched] = useState<boolean>(false);
   const [reverse, setReverse] = useState<boolean>(false);
   const [region, setRegion] = useState(regions[0]);
-  const [lastPage, setLastPage] = useState<number>(1);
-  const [filter, setFilter] = useState<string>('');
 
   const PAGE_SIZE = 27;
 
@@ -73,16 +69,16 @@ export default function Home() {
         </div>
       </header>
       <form className='flex flex-col w-full'>
-        <div className='flex flex-row flex-wrap items-center gap-5 my-4'>
-          <div className='flex flex-col justify-between h-16'>
+        <ul className='flex flex-row flex-wrap items-center gap-5 my-4'>
+          <li className='flex flex-col justify-between h-16'>
             <p className='text-darkGray text-xs font-bold'>Regions</p>
             <SelectInput
               selected={region}
               setSelected={handleRegionFilter}
               options={regions}
             />
-          </div>
-          <div className='flex flex-col justify-between h-16'>
+          </li>
+          <li className='flex flex-col justify-between h-16'>
             <p className='text-darkGray text-xs font-bold'>Sort by Number</p>
             <img
               src='/icons/sort.svg'
@@ -93,7 +89,7 @@ export default function Home() {
                 setPage(1);
               }}
             />
-          </div>
+          </li>
           {status === 'authenticated' && (
             <div className='flex flex-col justify-between h-16'>
               <p className='text-darkGray text-xs font-bold'>Catched Only</p>
@@ -137,7 +133,7 @@ export default function Home() {
               </svg>
             </div>
           )}
-        </div>
+        </ul>
         <div className='flex flex-row flex-wrap gap-2 my-4'></div>
 
         <Pagination
