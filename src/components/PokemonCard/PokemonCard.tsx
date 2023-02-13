@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { getColorByType } from 'utils/getColorByType';
+import { pokemonType } from '@typings/pokemon';
 import { usePokemon } from 'hooks/usePokemon';
 
 interface PokemonCardProps {
@@ -20,16 +21,12 @@ const PokemonCard: React.FC<PokemonCardProps> = ({ pokemon }) => {
       <Link
         href={`/pokemon/${pokemonData?.name}`}
         className={`shadow-xl flex flex-col relative items-center text-right bg-white border border-solid rounded-lg lg:h-48 lg:w-44 md:h-44 md:w-40 h-28 w-24 justify-between overflow-hidden cursor-pointer ${
-          getColorByType[
-            pokemonData?.types[0].type.name as keyof typeof getColorByType
-          ].border
+          getColorByType[pokemonData?.types[0].type.name as pokemonType].border
         }`}
       >
         <p
           className={`text-xxxs md:text-xxs right-0 p-1 absolute ${
-            getColorByType[
-              pokemonData?.types[0].type.name as keyof typeof getColorByType
-            ].text
+            getColorByType[pokemonData?.types[0].type.name as pokemonType].text
           }`}
         >
           #{pokemonData?.id}
@@ -42,9 +39,7 @@ const PokemonCard: React.FC<PokemonCardProps> = ({ pokemon }) => {
         <div className=' w-full'>
           <p
             className={`text-xxs md:text-xs lg:text-sm text-center text-white capitalize ${
-              getColorByType[
-                pokemonData?.types[0].type.name as keyof typeof getColorByType
-              ].bg
+              getColorByType[pokemonData?.types[0].type.name as pokemonType].bg
             }`}
           >
             {pokemonData?.name}

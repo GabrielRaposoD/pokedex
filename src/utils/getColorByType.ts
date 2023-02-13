@@ -1,4 +1,12 @@
-export const getColorByType = {
+import { pokemonType } from '@typings/pokemon';
+
+export const getColorByType: {
+  [k in pokemonType]: {
+    bg: string;
+    text: string;
+    border: string;
+  };
+} = {
   rock: {
     bg: 'bg-rock',
     text: 'text-rock',
